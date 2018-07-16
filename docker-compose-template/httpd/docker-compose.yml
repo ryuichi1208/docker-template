@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  web:
+    image: httpd
+    container_name: httpd
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./html:/usr/local/apache2/htdocs/
+      # オリジナルのファイルをコピーすることがあれば、コメントを外す
+      # - ./httpd.conf:/usr/local/apache2/conf/httpd.conf
+    ports:
+      - "8080:80"

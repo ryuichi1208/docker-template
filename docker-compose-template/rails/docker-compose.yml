@@ -1,0 +1,18 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    container_name: rails_postgresql
+    volumes:
+      - ./db/conf/postgresql.conf:/etc/postgresql/postgresql.conf # postgresqlの設定ファイル
+      - ./db/data:/var/lib/postgresql/data # データをローカルにマウント
+  web:
+    build: ./web
+    container_name: rails_web
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - ./web/myapp:/myapp # ローカルにマウント
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db

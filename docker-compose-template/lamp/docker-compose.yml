@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.6
+    container_name: lamp_mysql
+    privileged: true # rootで実行
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: lamp_database
+      MYSQL_USER: tamayan
+      MYSQL_PASSWORD: _Password123
+      TZ: Asia/Tokyo
+    volumes:
+      - ./db/conf/my.cnf:/etc/mysql/my.cnf
+      - ./db/init:/docker-entrypoint-initdb.d
+      - ./db/data:/var/lib/mysql
+    ports:
+      - '3306:3306'
+  web:
+    build: ./web
+    container_name: lamp_php
+    volumes:
+      - ./web/conf/php.ini:/usr/local/etc/php/php.ini
+      - ./html:/var/www/html
+    ports:
+      - '8080:80'
+    links:
+        - db

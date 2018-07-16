@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  php:
+    image: php:7-apache
+    container_name: php7-apache
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - ./html:/var/www/html
+    ports:
+      - "8080:80"

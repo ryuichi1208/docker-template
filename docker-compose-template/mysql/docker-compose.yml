@@ -1,0 +1,22 @@
+
+version: '3'
+
+services:
+  db:
+    image: mysql:5.6
+    container_name: mysql # コンテナ名
+    privileged: true # rootで実行
+    environment:
+      MYSQL_ROOT_PASSWORD: root # rootのパスワード
+      MYSQL_DATABASE: test_database # 初期DB作成
+      MYSQL_USER: tamayan # 初期ユーザー作成
+      MYSQL_PASSWORD: _Password123 # 初期ユーザーのパスワード
+      TZ: Asia/Tokyo # タイムゾーン
+    tty: true # コンテナに疑似TTYを割り当てる
+    stdin_open: true # コンテナの標準入力をオープンしたままにする
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d # 初期起動時に実行するSQL
+      - ./my.cnf:/etc/mysql/my.cnf # 設定ファイルをコピー
+      - ./data:/var/lib/mysql
+    ports:
+      - "3306:3306" # ポートを開放する
