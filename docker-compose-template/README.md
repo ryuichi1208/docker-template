@@ -9,8 +9,10 @@ docker-composeのテンプレートプロジェクトです。
 - mysql
 - nginx
 - php7-apache
+- php5-nginx
 - postgresql
 - rails
+- redmine
 
 ## Usage
 
