@@ -1,0 +1,39 @@
+ql
+mysql:
+  image: mysql
+  volumes_from:
+    - data-mysql
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: password
+# redmine
+redmine:
+  image: sameersbn/redmine:2.6.3
+  volumes_from:
+    - data-gitbucket
+    - data-redmine
+  links:
+    - mysql:mysql
+  environment:
+    REDMINE_RELATIVE_URL_ROOT: /redmine
+    DB_USER: redmine
+    DB_PASS: password
+    SMTP_USER: address@hoge.com
+    SMTP_PASS: password
+# gitbucket
+gitbucket:
+  image: f99aq8ove/gitbucket
+  volumes_from:
+    - data-gitbucket
+  ports:
+    - "29418:29418"
+  command: java -jar /opt/gitbucket.war --prefix=/gitbucket
+# reverse-proxy
+proxy:
+  build: myproxy
+  links:
+    - gitbucket:gitbucket
+    - redmine:redmine
+  ports:
+    - "80:80"
