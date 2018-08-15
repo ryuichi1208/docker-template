@@ -12,7 +12,7 @@ docker-composeのテンプレートプロジェクトです。
 - php5-nginx
 - postgresql
 - rails
-- redmine
+- RedMine
 
 ## Usage
 
