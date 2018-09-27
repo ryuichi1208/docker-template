@@ -1,0 +1,30 @@
+FROM nvidia/cuda:8.0-cudnn5-devel
+
+RUN apt-get update -y \
+    && apt-get install -y \
+    apt-utils \
+    git \
+    wget \
+    unzip \
+    lsof \
+    lsb-core \
+    libatlas-base-dev \
+    libopencv-dev \
+    python-opencv \
+    python-pip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose.git
+
+WORKDIR openpose
+RUN git checkout tags/v1.3.0 \
+    && git submodule update --init --recursive \
+    && sed -i -e "s/sudo chmod +x \$1//g" ubuntu/install_caffe_and_openpose_if_cuda8.sh \
+    && sed -i -e "s/git submodule update --init --recursive//g" ubuntu/install_caffe_and_openpose_if_cuda8.sh \
+    && sed -i "s/sudo chmod +x \$1//g" ubuntu/install_openpose_if_cuda8.sh \
+    && sed -i "s/sudo -H//g" 3rdparty/caffe/install_caffe_if_cuda8.sh \
+    && sed -i "s/sudo//g" 3rdparty/caffe/install_caffe_if_cuda8.sh \
+    && sync \
+    && sleep 1 \
+    && ./ubuntu/install_caffe_and_openpose_if_cuda8.sh
