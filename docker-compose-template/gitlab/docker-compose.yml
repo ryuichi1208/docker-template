@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  gitlab:
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab.$DOMAIN'
+        mattermost_external_url 'http://mattermost.$DOMAIN'
+        registry_external_url 'http://registry.$DOMAIN'
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - '/srv/$DOMAIN/config:/etc/gitlab'
+      - '/srv/$DOMAIN/logs:/var/log/gitlab'
+      - '/srv/$DOMAIN/data:/var/opt/gitlab'
