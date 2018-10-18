@@ -11,6 +11,14 @@ Basically, we do not perform anything other than checking the operation with the
 
 # Demo
 
+### docker
+
 ```
 $ docker buid -t .
+```
+
+### docker-compose
+
+```
+$ docker-compose up -d
 ```
