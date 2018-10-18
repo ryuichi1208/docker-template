@@ -6,6 +6,9 @@ Configuration file for docker & kubernetes
 
 # Description
 
+It is a template storage place of yaml file when using for docker files and kubernetes.
+Basically, we do not perform anything other than checking the operation with the latest version.
+
 # Demo
 
 ```
