@@ -1,0 +1,11 @@
+FROM ubuntu:latest AS build
+ADD openjdk-11.0.1_linux-x64_bin.tar.gz /opt/jdk/
+ENV PATH /opt/jdk/jdk-11.0.1/bin:$PATH
+RUN ["jlink", "--compress=2", "--module-path", "/opt/jdk/jdk-11/jmods", "--add-modules", "java.base", "--output", "/linked"]
+
+FROM ubuntu:latest
+COPY --from=build /linked /opt/jdk/
+ENV PATH=$PATH:/opt/jdk/bin
+ADD HelloWorld.class /
+
+CMD [ "java", "-showversion", "HelloWorld" ]
