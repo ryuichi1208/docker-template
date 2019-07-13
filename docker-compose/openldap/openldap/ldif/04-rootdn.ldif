@@ -1,0 +1,6 @@
+dn: cn=config
+changetype: modify
+
+dn: olcDatabase={1}{{ LDAP_BACKEND }},cn=config
+replace: olcRootDN
+olcRootDN: cn=Manager,{{ LDAP_BASE_DN }}

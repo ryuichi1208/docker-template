@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  openldap:
+    image: osixia/openldap:1.1.9
+    container_name: test1-ldap
+    environment:
+      LDAP_ORGANISATION: "example"
+      LDAP_DOMAIN: "example.com"
+      LDAP_ADMIN_PASSWORD: "ldappw"
+
+  admin:
+    image: osixia/phpldapadmin:0.7.0
+    container_name: test1-ldapadmin
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: "ldap"
+      PHPLDAPADMIN_HTTPS: "false"
+    ports:
+      - "8080:80"
+    links:
+      - "openldap:ldap"
+
+  redmine:
+    image: redmine:3.4.2
+    container_name: test1-redmine
+    environment:
+      REDMINE_DB_PASSWORD: rdpassword
+    ports:
+      - "80:3000"
+    links:
+      - "postgres:postgres"
+      - "openldap:ldap"
+
+  postgres:
+    image: postgres:9.6.3
+    container_name: test1-postgres
+    environment:
+      POSTGRES_PASSWORD: rdpassword
+      POSTGRES_USER: redmine
