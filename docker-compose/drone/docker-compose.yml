@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  drone-server:
+    image: drone/drone:1.0.0-rc.3
+    ports:
+      - 8000:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - .:/data
+    restart: always
+    environment:
+      - DRONE_GITHUB_SERVER=https://github.com
+      - DRONE_GITHUB_CLIENT_ID=XXX
+      - DRONE_GITHUB_CLIENT_SECRET=YYY
+      - DRONE_RPC_SECRET=ZZZ
+      - DRONE_SERVER_HOST=abcdef.ngrok.io
+      - DRONE_SERVER_PROTO=https
+      - DRONE_TLS_AUTOCERT=true
+
+  drone-agent:
+    image: drone/agent:1.0.0-rc.3
+    command: agent
+    restart: always
+    depends_on:
+      - drone-server
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DRONE_RPC_SERVER=http://drone-server
+      - DRONE_RPC_SECRET=ZZZ
+      - DRONE_RUNNER_CAPACITY=2
