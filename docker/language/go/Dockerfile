@@ -1,4 +1,4 @@
-FROM golang:-alpine AS build-env
+FROM golang:alpine AS build-env
 
 # 最低限のビルド用ツール
 RUN apk --no-cache add git make build-base
