@@ -31,7 +31,7 @@ CIRCLECI = ${CIRCLECI:-None}
 HOME = ${HOME:-None}
 EOF
 
-exit 1
+exit 0
 
 TPATH=~/.dotfiles
 
