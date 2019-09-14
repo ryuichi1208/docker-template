@@ -4,8 +4,13 @@ jobs:
     working_directory: ~/mydir
     machine:
       enabled: true
+      docker_layer_caching: true
     steps:
       - checkout
+      - run:
+          name: Show Variable
+          command: |
+            time bash install.sh
       - run:
           name: Exec Build
           command: |
