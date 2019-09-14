@@ -1,6 +1,8 @@
 #!/bin/bash
 
 cat << EOF
+ID = $(id)
+UNAME = $(uname -a)
 DOCKER_BUILDKIT = ${DOCKER_BUILDKIT}
 CI = ${CI}
 CI_PULL_REQUEST = ${CI_PULL_REQUEST:-None}
@@ -29,6 +31,7 @@ CIRCLE_WORKFLOW_ID = ${CIRCLE_WORKFLOW_ID:-None}
 CIRCLE_WORKING_DIRECTORY = ${CIRCLE_WORKING_DIRECTORY:-None}
 CIRCLECI = ${CIRCLECI:-None}
 HOME = ${HOME:-None}
+DISK = $(df -h)
 EOF
 
 exit 0
