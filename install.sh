@@ -1,6 +1,8 @@
 #!/bin/bash
 
 cat << EOF
+PWD = $(pwd)
+SCRIPT_MANE = ${0}
 ID = $(id)
 UNAME = $(uname -a)
 DOCKER_BUILDKIT = ${DOCKER_BUILDKIT}
