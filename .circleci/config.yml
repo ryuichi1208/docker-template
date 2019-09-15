@@ -13,6 +13,12 @@ jobs:
           command: |
             time bash install.sh
       - run:
+          name: Exec lint
+          command: |
+            curl -L https://github.com/hadolint/hadolint/releases/download/v1.17.2/hadolint-Linux-x86_64 -o hadolint
+            chmod 755 hadolint
+            find . -type f -name "Dockerfile" | xargs -L 1 -t ./hadolint || echo ""
+      - run:
           name: Exec Build
           command: |
             export DOCKER_BUILDKIT=1
@@ -33,3 +39,5 @@ workflows:
               only:
                 - master
                 - deploy
+                - beta
+
