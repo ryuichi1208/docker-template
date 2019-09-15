@@ -1,6 +1,10 @@
-VERSION="1.0.0"
-DOCKER_CMD= $(shell which docker)
-BASEDIR = ./docker
+VERSION		="1.0.0"
+$(CC)		= $(shell which gcc)
+DOCKER_CMD	= $(shell which docker)
+BASEDIR 	= ./docker
+
+.PHONY: build
+build: all
 
 .PHONY: all
 all: develop language middleware application
@@ -32,3 +36,16 @@ middleware:
 application:
 	cd $(BASEDIR)/application/nvim && $(DOCKER_CMD) build .
 	cd $(BASEDIR)/application/swagger && $(DOCKER_CMD) build .
+
+.PHONY: clean
+clean:
+	${DOCKER_CMD} container prune
+	${DOCKER_CMD} image prune
+
+.PHONY: $(PROGRAM)
+$(PROGRAM): $(OBJS)
+	$(CC) -o $(PROGRAM) $^
+
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+
