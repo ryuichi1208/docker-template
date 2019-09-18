@@ -21,6 +21,7 @@ jobs:
           name: Show Variable
           command: |
             time bash install.sh
+            make verson
       - run:
           name: run lint
           command: |

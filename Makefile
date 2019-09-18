@@ -1,7 +1,9 @@
-VERSION		="1.0.0"
-$(CC)		= $(shell which gcc)
-DOCKER_CMD	= $(shell which docker)
-BASEDIR 	= ./docker
+VERSION		:="1.0.0"
+
+$(CC)		:= $(shell which gcc)
+DOCKER_CMD	:= $(shell which docker)
+DOCKER_CMP_CMD	:= $(shell which docker-compose)
+BASEDIR 	:= $(shell pwd)/docker
 
 .PHONY: build
 build: all
@@ -50,3 +52,7 @@ $(PROGRAM): $(OBJS)
 .c.o:
 	$(CC) $(CFLAGS) -c $<
 
+.PHONY: version
+version:
+	$(DOCKER_CMD) version && echo ""
+	$(DOCKER_CMP_CMD) version

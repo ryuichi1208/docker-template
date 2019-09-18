@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cat << EOF
+
 PWD = $(pwd)
 SCRIPT_MANE = ${0}
 ID = $(id)
