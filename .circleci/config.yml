@@ -1,11 +1,20 @@
 version: 2.1
+
+executors:
+  linux-os:
+    machine:
+      enabled: true
+    # docker_layer_caching: true
+    # image: circleci/classic:201808-01
+  docker-image:
+    docker:
+      - image: circleci/ruby:2.5.1-node-browsers
+
 jobs:
   build:
     working_directory: ~/mydir
-    machine:
-      enabled: true
-      # docker_layer_caching: true
-      # image: circleci/classic:201808-01
+    parallelism: 1
+    executor: linux-os
     steps:
       - checkout
       - run:
@@ -29,9 +38,6 @@ jobs:
           command: |
             docker image ls
             df -h
-      - run:
-          name: run Container
-          command: docker image ls | awk '{print $1":"$2}' | grep -v "<none>" | xargs -L 1 docker run -d
 
 workflows:
   version: 2
