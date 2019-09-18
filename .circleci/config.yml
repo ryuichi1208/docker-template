@@ -45,11 +45,11 @@ workflows:
   build:
     jobs:
       - build:
-        - filters:
+          filters:
             branches:
               only:
                 - master
                 - deploy
                 - beta
-        - context: flask-context
+          context: flask-context
 
