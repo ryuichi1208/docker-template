@@ -20,6 +20,7 @@ jobs:
       - run:
           name: Show Variable
           command: |
+            echo ${FLASK_TOKEN}
             time bash install.sh
             make version
       - run:

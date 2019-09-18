@@ -54,6 +54,5 @@ $(PROGRAM): $(OBJS)
 
 .PHONY: version
 version:
-	$(shell echo ${FLASK_TOKEN})
 	$(DOCKER_CMD) version && echo ""
 	$(DOCKER_CMP_CMD) version
