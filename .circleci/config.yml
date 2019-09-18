@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/mydir
     machine:
       enabled: true
-      docker_layer_caching: true
+      # docker_layer_caching: true
       # image: circleci/classic:201808-01
     steps:
       - checkout
@@ -13,13 +13,13 @@ jobs:
           command: |
             time bash install.sh
       - run:
-          name: Exec lint
+          name: run lint
           command: |
             curl -L https://github.com/hadolint/hadolint/releases/download/v1.17.2/hadolint-Linux-x86_64 -o hadolint
             chmod 755 hadolint
             find . -type f -name "Dockerfile" | xargs -L 1 -t ./hadolint || echo ""
       - run:
-          name: Exec Build
+          name: run Build
           command: |
             export DOCKER_BUILDKIT=1
             docker version
@@ -29,6 +29,9 @@ jobs:
           command: |
             docker image ls
             df -h
+      - run:
+          name: run Container
+          command: docker image ls | awk '{print $1":"$2}' | grep -v "<none>" | xargs -L 1 docker run -d
 
 workflows:
   version: 2
