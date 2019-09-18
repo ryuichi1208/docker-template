@@ -28,6 +28,7 @@ jobs:
           name: Show Images
           command: |
             docker image ls
+            df -h
 
 workflows:
   version: 2

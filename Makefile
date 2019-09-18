@@ -22,6 +22,7 @@ language:
 	cd $(BASEDIR)/language/python/pytest && $(DOCKER_CMD) build .
 	cd $(BASEDIR)/language/python/jessi && $(DOCKER_CMD) build .
 	cd $(BASEDIR)/language/go && $(DOCKER_CMD) build .
+	cd $(BASEDIR)/language/php && $(DOCKER_CMD) build .
 
 .PHONY: middleware
 middleware:
