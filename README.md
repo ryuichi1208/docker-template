@@ -1,3 +1,7 @@
+![CircleCI](https://img.shields.io/circleci/build/github/ryuichi1208/docker-template/master)
+![GitHub](https://img.shields.io/github/license/ryuichi1208/docker-template)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ryuichi1208/docker-template)
+
 ## Project Title
 docker-template
 
