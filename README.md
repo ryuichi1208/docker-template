@@ -1,3 +1,4 @@
+![Docker](https://img.shields.io/badge/Docker-18.09%2F19.03-red)
 ![CircleCI](https://img.shields.io/circleci/build/github/ryuichi1208/docker-template/master)
 ![GitHub](https://img.shields.io/github/license/ryuichi1208/docker-template)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ryuichi1208/docker-template)
