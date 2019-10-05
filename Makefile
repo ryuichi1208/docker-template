@@ -25,6 +25,7 @@ language:
 	cd $(BASEDIR)/language/python/jessi && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/go && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/php && $(DOCKER_CMD) build --progress=plain --rm=true .
+	cd $(BASEDIR)/language/dart && $(DOCKER_CMD) build --progress=plain --rm=true .
 
 .PHONY: middleware
 middleware:
