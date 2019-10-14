@@ -15,6 +15,7 @@ all: develop language middleware application
 develop:
 	cd $(BASEDIR)/develop/centos && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/develop/ubuntu && $(DOCKER_CMD) build --progress=plain --rm=true .
+	cd $(BASEDIR)/develop/alpine && $(DOCKER_CMD) build --progress=plain --rm=true .
 
 .PHONY: language
 language:
@@ -25,7 +26,7 @@ language:
 	cd $(BASEDIR)/language/python/jessi && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/go && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/php && $(DOCKER_CMD) build --progress=plain --rm=true .
-	cd $(BASEDIR)/language/dart && $(DOCKER_CMD) build --progress=plain --rm=true .
+	# cd $(BASEDIR)/language/dart && $(DOCKER_CMD) build --progress=plain --rm=true .
 
 .PHONY: middleware
 middleware:
