@@ -31,7 +31,7 @@ language:
 .PHONY: middleware
 middleware:
 	cd $(BASEDIR)/middleware/nginx && $(DOCKER_CMD) build --progress=plain --rm=true .
-	cd $(BASEDIR)/middleware/ansible && $(DOCKER_CMD) build --progress=plain --rm=true .
+	# cd $(BASEDIR)/middleware/ansible && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/middleware/terraform && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/middleware/apache && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/middleware/sshd && $(DOCKER_CMD) build --progress=plain --rm=true .
