@@ -22,7 +22,7 @@ language:
 	cd $(BASEDIR)/language/elixir && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/fortran && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/python && $(DOCKER_CMD) build --progress=plain --rm=true .
-	cd $(BASEDIR)/language/python/pytest && $(DOCKER_CMD) build --progress=plain --rm=true .
+	# cd $(BASEDIR)/language/python/pytest && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/python/jessi && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/python/pypy && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/go && $(DOCKER_CMD) build --progress=plain --rm=true .
