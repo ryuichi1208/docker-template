@@ -1,7 +1,13 @@
-FROM python:3.7.4-alpine3.10
-WORKDIR /home/app
-COPY . .
-RUN pip install -r requirements.txt
+FROM python:3.8.0-alpine
+USER root:root
+WORKDIR /root
 
-ENTRYPOINT ["sh"]
-CMD [""]
+COPY --chown=root:root requirements.txt .
+RUN apk update \
+	&& apk add --no-cache \
+	vim \
+	curl \
+	&& pip install -U pip \
+	&& pip install -r requirements.txt
+
+ENTRYPOINT ["/usr/local/bin/python"]

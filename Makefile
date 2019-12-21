@@ -15,6 +15,7 @@ all: develop language middleware application
 develop:
 	cd $(BASEDIR)/develop/centos && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/develop/ubuntu && $(DOCKER_CMD) build --progress=plain --rm=true .
+	cd $(BASEDIR)/develop/alpine && $(DOCKER_CMD) build --progress=plain --rm=true .
 
 .PHONY: language
 language:
@@ -26,12 +27,12 @@ language:
 	cd $(BASEDIR)/language/python/pypy && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/go && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/php && $(DOCKER_CMD) build --progress=plain --rm=true .
-	cd $(BASEDIR)/language/dart && $(DOCKER_CMD) build --progress=plain --rm=true .
+	# cd $(BASEDIR)/language/dart && $(DOCKER_CMD) build --progress=plain --rm=true .
 
 .PHONY: middleware
 middleware:
 	cd $(BASEDIR)/middleware/nginx && $(DOCKER_CMD) build --progress=plain --rm=true .
-	cd $(BASEDIR)/middleware/ansible && $(DOCKER_CMD) build --progress=plain --rm=true .
+	# cd $(BASEDIR)/middleware/ansible && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/middleware/terraform && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/middleware/apache && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/middleware/sshd && $(DOCKER_CMD) build --progress=plain --rm=true .

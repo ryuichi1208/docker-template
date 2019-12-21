@@ -1,1 +1,1 @@
-requests
+black==19.3b0
