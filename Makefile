@@ -13,7 +13,7 @@ all: develop language middleware application
 
 .PHONY: develop
 develop:
-	docker run -it lukaszlach/merry-christmas 
+	# docker run -it lukaszlach/merry-christmas 
 	cd $(BASEDIR)/develop/centos && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/develop/ubuntu && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/develop/alpine && $(DOCKER_CMD) build --progress=plain --rm=true .
