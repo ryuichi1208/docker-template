@@ -52,8 +52,14 @@ clean:
 $(PROGRAM): $(OBJS)
 	$(CC) -o $(PROGRAM) $^
 
+ifeq  ($(shell uname),Darwin)
 .c.o:
 	$(CC) $(CFLAGS) -c $<
+else
+.txt.html:
+	perl ~/Dropbox/Web/GH/mw/makeweb.pl $< $@
+	open -a "Google Chrome" $@
+endif
 
 .PHONY: version
 version:
