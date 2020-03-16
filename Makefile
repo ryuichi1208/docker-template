@@ -13,6 +13,7 @@ all: develop language middleware application
 
 .PHONY: develop
 develop:
+	# docker run -it lukaszlach/merry-christmas 
 	cd $(BASEDIR)/develop/centos && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/develop/ubuntu && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/develop/alpine && $(DOCKER_CMD) build --progress=plain --rm=true .
@@ -23,7 +24,7 @@ language:
 	cd $(BASEDIR)/language/fortran && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/python && $(DOCKER_CMD) build --progress=plain --rm=true .
 	# cd $(BASEDIR)/language/python/pytest && $(DOCKER_CMD) build --progress=plain --rm=true .
-	cd $(BASEDIR)/language/python/jessi && $(DOCKER_CMD) build --progress=plain --rm=true .
+	# cd $(BASEDIR)/language/python/jessi && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/python/pypy && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/go && $(DOCKER_CMD) build --progress=plain --rm=true .
 	cd $(BASEDIR)/language/php && $(DOCKER_CMD) build --progress=plain --rm=true .

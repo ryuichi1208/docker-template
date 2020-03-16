@@ -1,0 +1,107 @@
+# ports that docker needs to expose
+PORTS ?= -p 8080:8080
+# volumes that docker needs to mount
+VOLUMES ?= -v ~/work:/work
+# custom variables that will be used in your image
+ENVS ?= \
+	-e dbType=mysql \
+	-e dbServer=localhost \
+	-e dbPort=3306 \
+	-e dbName=database
+# any other docker command that you need to pass
+# in a start or run stage
+CUSTOM ?= --add-host custom.malucelli.net:127.0.0.1
+
+# custom functions that you may need
+
+# ensure that latest isn't use for build
+define isLatest
+	@[ $(VERSION) != "latest" ] || (echo "VERSION can't be latest in $(@)"; exit 1)
+endef
+
+# Rule "help"
+help:
+	@echo "\nUsage: make [target]\n\nTarget: \n"
+	@grep -h "##" $(MAKEFILE_LIST) | grep -v "(help\|grep)" | sed -e "s/## //" -e 's/^/  /' -e 's/:/ -/'
+
+# Rule "dependencies"
+.PHONY: dependencies
+dependencies:
+dependencies: ## Build dependencies for Dockerfile
+	@for dep in $(DEPENDENCIES); do \
+		cd $(shell git rev-parse --show-toplevel)/$$dep; \
+		$(MAKE) -s build || exit 2; \
+	done
+
+# Rule "build"
+.PHONY: build
+build: dependencies
+build: ## Build the Dockerfile
+	# only if you don't allow the use of latest for build
+	# and ensure that a version need to be specified
+	# $(call isLatest)
+	docker build --force-rm \
+		--no-cache -t $(IMAGE):$(VERSION) .
+
+# Rule "tag"
+.PHONY: tag
+tag:
+tag: ## Tag the image to "latest" version
+	# only if you don't allow the use of latest for tag
+	# and ensure that a version need to be specified
+	# $(call isLatest)
+	docker tag $(IMAGE):$(VERSION) $(IMAGE):latest
+
+# Rule "registry"
+.PHONY: registry
+registry: tag
+registry: ## Tag the image on the custom repository
+	docker tag $(IMAGE):$(VERSION) $(REGISTRY)/$(IMAGE):$(VERSION)
+
+# Rule "shell"
+.PHONY: shell
+shell:
+shell: ## Run a local container with "bash" process
+	docker run --rm -it $(IMAGE):$(VERSION) bash
+
+# Rule "run"
+.PHONY: run
+run:
+run: ## Run a local container with CUSTOM, PORTS, VOLUMES and ENVS variables
+	docker run --rm $(CUSTOM) $(PORTS) $(VOLUMES) $(ENVS) $(IMAGE):$(VERSION)
+
+# Rule "start"
+.PHONY: start
+start:
+start: ## Start a background container with CUSTOM, PORTS, VOLUMES and ENVS variables
+	docker run -d --name $(NAME) $(CUSTOM) $(PORTS) $(VOLUMES) $(ENVS) $(IMAGE):$(VERSION)
+
+# Rule "logs"
+.PHONY: logs
+logs:
+logs: ## Follow the logs of the container are printed to CONSOLE
+	docker logs -f $(NAME)
+
+# Rule "stop"
+.PHONY: stop
+stop:
+stop: ## Stop the background container
+	docker stop $(NAME)
+
+# Rule "rm"
+.PHONY: rm
+rm:
+rm: ## Remove stopped container
+	docker rm $(NAME)
+
+# Rule "rmi"
+.PHONY: rmi
+rmi:
+rmi: ## Remove the image from local registry
+	docker rmi -f $(shell docker images -q $(IMAGE))
+
+# Rule "push"
+.PHONY: push
+push: registry
+push: ## Push the image to remote registry
+	docker push $(REGISTRY)/$(IMAGE):$(VERSION)
