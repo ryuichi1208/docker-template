@@ -5,6 +5,9 @@ BASEDIR 	:= $(shell pwd)/docker
 VERSION		:="1.0.0"
 BUILD_OPT	:= "--rm=true --progress=plain --rm=true"
 
+DEVELOP_TARGET := $(wildcard docker/develop/*)
+LANGUAGE_TAGET := $(wildcard docker/language*)
+
 .PHONY: build --progress=plain --rm=true
 build --progress=plain --rm=true: all
 
@@ -13,10 +16,7 @@ all: develop language middleware application
 
 .PHONY: develop
 develop:
-	# docker run -it lukaszlach/merry-christmas 
-	cd $(BASEDIR)/develop/centos && $(DOCKER_CMD) build --progress=plain --rm=true .
-	cd $(BASEDIR)/develop/ubuntu && $(DOCKER_CMD) build --progress=plain --rm=true .
-	cd $(BASEDIR)/develop/alpine && $(DOCKER_CMD) build --progress=plain --rm=true .
+	@$(foreach val, $(DEVELOP_TARGET), cd $(abspath $(val)) && $(DOCKER_CMD) build --progress=plain --rm=true . ;)
 
 .PHONY: language
 language:
