@@ -1,0 +1,20 @@
+[
+  {
+    "name": "url",
+    "url": "https://google.com",
+    "type": "searchengine",
+    "indexed": "true",
+    "stored": "true",
+    "required": "true",
+    "multiValued": "false"
+  },
+  {
+    "name": "url",
+    "url": "https://yahoo.co.jp",
+    "type": "searchengine",
+    "indexed": "true",
+    "stored": "true",
+    "required": "true",
+    "multiValued": "false"
+  }
+]
